@@ -70,6 +70,40 @@ if (portable && portable.isPortable) {
 	app.setAppLogsPath(path.join(userDataPath, 'logs'));
 }
 
+function injectGlasscordClass() {
+	// Replacing BrowserWindow with our wrapper class
+	const electron = require('electron');
+	const BrowserWindow = require('./glasscord_browser_window');
+	const electronPath = require.resolve('electron');
+	const newElectron = Object.assign({}, electron, { BrowserWindow }); // Create new electron object
+
+	delete require.cache[electronPath].exports; // Delete exports
+	require.cache[electronPath].exports = newElectron; // Assign the exports as the new electron
+
+	if (require.cache[electronPath].exports !== newElectron) {
+		console.log('Something\'s wrong! Glasscord can\'t be injected properly!');
+	}
+}
+
+function delayReadyEvent(milliseconds) { // from Zack, blame Electron
+	if (milliseconds === 0) return;
+	const electron = require('electron');
+	const originalEmit = electron.app.emit;
+	electron.app.emit = function patchedEmit(event, ...args) {
+		if (event !== "ready") return Reflect.apply(originalEmit, this, arguments);
+		setTimeout(() => {
+			electron.app.emit = originalEmit;
+			electron.app.emit("ready", ...args);
+		}, milliseconds);
+	};
+}
+
+if (process.platform === 'linux') {
+	app.commandLine.appendSwitch('use-gl', 'desktop');
+	delayReadyEvent(500);
+}
+injectGlasscordClass();
+
 // Register custom schemes with privileges
 protocol.registerSchemesAsPrivileged([
 	{

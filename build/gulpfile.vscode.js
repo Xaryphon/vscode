@@ -45,6 +45,9 @@ const vscodeEntryPoints = _.flatten([
 ]);
 
 const vscodeResources = [
+	'out-build/glasscord_browser_window.js',
+	'out-build/cssloader.js',
+	'out-build/cssloader_config.js',
 	'out-build/main.js',
 	'out-build/cli.js',
 	'out-build/driver.js',
