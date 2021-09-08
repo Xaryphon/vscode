@@ -447,10 +447,10 @@ registerThemingParticipant((theme, collector) => {
 			.monaco-workbench .activitybar > .content :not(.monaco-menu) > .monaco-action-bar .action-item:before {
 				content: "";
 				position: absolute;
-				top: 9px;
-				left: 9px;
-				height: 32px;
-				width: 32px;
+				top: 5px;
+				left: 5px;
+				height: 24px;
+				width: 24px;
 				z-index: 1;
 			}
 

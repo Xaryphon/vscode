@@ -78,7 +78,7 @@ export class ActivitybarPart extends Part implements IActivityBarService {
 
 	private static readonly PINNED_VIEW_CONTAINERS = 'workbench.activity.pinnedViewlets2';
 	private static readonly PLACEHOLDER_VIEW_CONTAINERS = 'workbench.activity.placeholderViewlets';
-	private static readonly ACTION_HEIGHT = 48;
+	private static readonly ACTION_HEIGHT = 32;
 	private static readonly ACCOUNTS_ACTION_INDEX = 0;
 
 	private static readonly GEAR_ICON = registerIcon('settings-view-bar-icon', Codicon.settingsGear, localize('settingsViewBarIcon', "Settings icon in the view bar."));
@@ -86,8 +86,8 @@ export class ActivitybarPart extends Part implements IActivityBarService {
 
 	//#region IView
 
-	readonly minimumWidth: number = 48;
-	readonly maximumWidth: number = 48;
+	readonly minimumWidth: number = 32;
+	readonly maximumWidth: number = 32;
 	readonly minimumHeight: number = 0;
 	readonly maximumHeight: number = Number.POSITIVE_INFINITY;
 
@@ -653,9 +653,9 @@ export class ActivitybarPart extends Part implements IActivityBarService {
 			const iconClass = `.monaco-workbench .activitybar .monaco-action-bar .action-label.${cssClass}`;
 			createCSSRule(iconClass, `
 				mask: ${cssUrl} no-repeat 50% 50%;
-				mask-size: 24px;
+				mask-size: 16px;
 				-webkit-mask: ${cssUrl} no-repeat 50% 50%;
-				-webkit-mask-size: 24px;
+				-webkit-mask-size: 16px;
 			`);
 		} else if (ThemeIcon.isThemeIcon(icon)) {
 			cssClass = ThemeIcon.asClassName(icon);
